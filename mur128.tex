@@ -1,0 +1,546 @@
+\documentclass[10pt]{report}
+
+% \usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{hyperref}
+%\usepackage{graphicx}
+%\usepackage{float}
+\usepackage[russian]{babel}
+%\usepackage{listings}
+%\lstset{inputencoding=utf8,extendedchars=false,keepspaces=true} %,language=C++
+
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{ccaption}
+\usepackage{verbatim}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{subfiles}
+\usepackage{syntax}
+\usepackage{bytefield}
+
+
+
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{hyperref}
+\hypersetup{unicode,breaklinks=true}
+%\usepackage{tikz}
+%\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri,calc,shapes.misc,shapes.geometric}
+%\usepackage{minted}
+
+\textheight 24.0cm
+\textwidth 16.8cm
+
+\voffset -2cm
+\hoffset .0cm
+\oddsidemargin 0.5mm
+\evensidemargin 0.5mm
+\topmargin -0.4mm
+\righthyphenmin=2
+\hfuzz=12.7pt
+\makeatletter
+%\renewcommand\section{\@startsection {section}{1}{\z@}%
+%                                   {3.5ex \@plus 1ex \@minus .2ex}%
+%                                   {2.3ex \@plus.2ex}%
+%                                   {\normalfont\Large\bfseries}}
+%\renewcommand{\thesection}{\arabic{section}}
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\newlength{\chaprule}
+\newlength{\ATchapskip}
+\setlength{\chaprule}{0.4\p@} \setlength{\ATchapskip}{10\p@} \advance \ATchapskip by -1\chaprule
+\renewcommand{\@makechapterhead}[1]{%
+	\ifdim\chaprule>6\p@ \setlength{\chaprule}{6\p@}\fi
+	\vspace*{\ATchapskip}%
+	%\noindent\rule{\textwidth}{\chaprule}\par%
+	%\vskip 10\p@
+	{\parindent \z@ \normalfont \ifnum \c@secnumdepth >\m@ne {\huge\bfseries \@chapapp\space \thechapter.}
+		%\par\nobreak
+		%\vskip 8\p@
+		\fi \interlinepenalty\@M \huge\bfseries #1\par\nobreak \vskip 10\p@
+		%\noindent\rule{\textwidth}{\chaprule}\par%
+		\vskip\ATchapskip }}
+
+%\@addtoreset{lstlisting}{section}
+\makeatother
+
+
+\newcounter{rem}[section]
+\renewcommand{\therem}{\thesection.\arabic{rem}}
+\newenvironment{Remark}{\par\refstepcounter{rem} \bf Замечание \therem. \sl}{\rm\par}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\theenumi)}
+\newcommand{\udc}[1]{УДК #1}
+
+\newcounter{lem}[section]
+\renewcommand{\thelem}{\thesection.\arabic{lem}}
+\newenvironment{Lemma}{\par\refstepcounter{lem}\bf Лемма \thelem. \sl}{\rm\par}
+
+\newcounter{cor}[section]
+\renewcommand{\thecor}{\thesection.\arabic{cor}}
+\newenvironment{Corrolary}{\par\refstepcounter{cor}\bf Следствие \thecor. \sl}{\rm\par}
+\newcounter{theor}[section]
+\renewcommand{\thetheor}{\thesection.\arabic{theor}}
+\newenvironment{Theorem}{\par\refstepcounter{theor}\bf Теорема \thetheor. \sl}{\rm\par}
+%\let \kappa=\ae
+\newcommand{\diag}{\mathop{\rm diag}}
+\newcommand{\epi}{\mathop{\rm epi}}
+\newenvironment{Proof}{\par\noindent\bf Доказательство.\rm}{ \par}
+
+\newcounter{exam}[section]
+\renewcommand{\theexam}{\thesection.\arabic{exam}}
+\newenvironment{Example}{\par\refstepcounter{exam}\bf Пример \theexam. \sl}{\rm\par}
+
+\newcounter{prob}[section]
+\renewcommand{\theprob}{\thesection.\arabic{prob}}
+\newenvironment{Problem}{\par\refstepcounter{prob}\bf Задача \theprob. \sl}{\rm\par}
+
+\newcounter{sol}[section]
+\renewcommand{\thesol}{\thesection.\arabic{sol}}
+\newenvironment{Solution}{\par\refstepcounter{sol}\bf Решение. \rm}{\rm\par}
+
+\newcounter{defin}[section]
+\renewcommand{\thedefin}{\thesection.\arabic{defin}}
+\newenvironment{Definition}{\par\refstepcounter{defin}\bf Определение \thedefin.\sl}{\rm\par}
+
+\newcounter{answ}[section]
+\renewcommand{\theansw}{\thesection.\arabic{answ}}
+\newenvironment{Answer}{\par\refstepcounter{answ}\theansw. \rm}{\rm\par}
+
+\newcounter{exerc}[section]
+\renewcommand{\theexerc}{\thesection.\arabic{exerc}}
+\newenvironment{Exercise}{\par\refstepcounter{exerc}\bf Упражнение \theexerc.\sl}{\rm\par}
+
+\newcounter{algor}[section]
+\renewcommand{\thealgor}{\thesection.\arabic{algor}}
+\newenvironment{Algorithm}[3]{\par\refstepcounter{algor}{\bf Алгоритм \thealgor. }{\sl #1}\par{\bf Вход: }{\sl #2}\par{\bf Выход: }\sl #3\par{\bf Метод.}\par}{\rm\par}
+
+\newcommand{\ljoq}{<<}
+\newcommand{\rjoq}{>>}
+\captiondelim{. }
+
+
+
+%\setcounter{section}{1}
+
+
+\makeatletter
+\def\@seccntformat#1{\csname the#1\endcsname.\quad}
+\makeatother
+
+\algrenewcommand\algorithmicwhile{\textbf{пока}}
+\algrenewcommand\algorithmicdo{\textbf{ }}
+\algrenewcommand\algorithmicend{\textbf{конец}}
+\algrenewcommand\algorithmicif{\textbf{если}}
+\algrenewcommand\algorithmicthen{\textbf{то}}
+\algrenewtext{EndIf}{\textbf{всё}}
+\algrenewcommand\algorithmicfor{\textbf{для}}
+\algrenewtext{ForAll}{\textbf{для всех }}
+\algrenewcommand\algorithmicelse{\textbf{иначе}}
+\algrenewtext{ElsIf}{\textbf{инес }}
+\algrenewtext{Procedure}{\textbf{алг }}
+\algrenewtext{EndProcedure}{\textbf{кон }}
+
+% modify style
+\renewcommand{\familydefault}{\sfdefault}
+% \setlength{\parindent}{1cm} % doesn't work.
+
+\begin{document}
+\title{Процессор МУР128\\ (машина учебная регистровая, 128--разрядная)}
+\author{Гаврилов В.С.}
+\date{\today}
+\maketitle
+%\raggedright
+%\RaggedRight
+
+\tableofcontents
+\setcounter{secnumdepth}{2}
+
+\listoftables
+
+\chapter{Основы архитектуры}
+    \section{Регистры}
+Процессор МУР128 имеет следующие регистры: 32 целочисленных регистра общего назначения (r0--r31) по 128 разрядов в каждом; 32 вещественных регистра (f0--f31), тоже по 128 разрядов в каждом; и 128--разрядный указатель команд ip. Регистры общего назначения можно использовать для целых чисел и для указателей. Вещественные регистры предназначены для хранения вещественных чисел. Формат хранения данных в вещественных регистрах --- формат четырёхкратной точности. Имеется также указатель стека sp и указатель кадра стека, bp. Первый из них идентичен r31, а второй идентичен r30. Специального регистра флагов нет.
+
+    \section{Режимы адресации}
+Находящийся в памяти операнд можно адресовать с помощью одной из следующих форм:
+\vspace{5mm}
+
+\parbox{50mm}{%
+Address = BP + IX*SF\\
+Address = BP + OS}
+\vspace{5mm}
+
+Здесь BP --- 128--разрядный базовый указатель, IX --- 128--разрядный индексный регистр, SF --- масштабирующий множитель, а OS --- непосредственно заданное смещение. Базовый указатель присутствует всегда, остальные элементы --- необязательны.
+
+Базовый указатель, BP, может быть регистром общего назначения, в том числе указателем стека (sp) и указателем кадра стека (bp).
+
+Индексный регистр, IX, может быть одним из регистров r0--r30. Значение, равное 31, означает отсутствие индексного регистра.
+
+Масштабирующий множитель, SF, может принимать значения 1, 2, 4, 8, 10, 16.
+
+Смещение, OS, представляет собой расширенное знаком десятиразрядное число.
+
+Переходы и вызовы могут использовать как смещение относительно указателя команд, так и абсолютный адрес. В каждом из этих случаев адрес перехода может указываться как в регистре общего назначения, так и непосредственно заданной 15--разрядной константой, расширяемой знаком до 128 разрядов. При использовании в качестве адреса перехода смещения относительно указателя команд, адрес перехода вычисляется так:
+\vspace{5mm}
+
+\parbox{50mm}{%
+Address = IP + 4 * Offset}
+\vspace{5mm}
+
+\noindent%
+поскольку размер любой команды процессора МУР128 равен 4 байтам.
+    
+\chapter{Список команд}
+    \section{Целочисленные команды}
+Целочисленные команды можно разделить на три больших группы: команды пересылки, арифметические команды, и поразрядные операции. В следующих трёх разделах перечисляются все эти команды и описывается их поведение.    
+        \subsection{Команды пересылки}
+К целочисленным командам пересылки относятся следующие команды:
+
+%\begin{table}[!h]
+%\caption{Целочисленные команды пересылки}
+%
+\begin{longtable}[c]{|l|p{12.5cm}|}
+\caption{Целочисленные команды пересылки} \\ \hline
+{\textbf{Команда}}    & \textbf{Пояснение} \endhead \hline 
+mov reg1, reg2        & Записать в целочисленный регистр reg1 содержимое целочисленного регистра reg2. \\ \hline 
+movu reg, imm15       & Записать в целочисленный регистр reg непосредственно заданную константу imm15, расширив её нулём до 128 разрядов. \\ \hline 
+movs reg, imm15       & Записать в целочисленный регистр reg непосредственно заданную константу imm15, расширив её знаком до 128 разрядов. \\ \hline 
+mov reg, [mem128]     & Загрузить в целочисленный регистр reg содержимое 128--разрядной ячейки памяти mem128. \\ \hline 
+mov8u reg, [mem8]     & Загрузить в целочисленный регистр reg содержимое 8--разрядной ячейки памяти mem8, расширив его перед этим нулём до 128 разрядов. \\ \hline 
+mov16u reg, [mem16]   & Загрузить в целочисленный регистр reg содержимое 16--разрядной ячейки памяти mem16, расширив его перед этим нулём до 128 разрядов. \\ \hline 
+mov32u reg, [mem32]   & Загрузить в целочисленный регистр reg содержимое 32--разрядной ячейки памяти mem32, расширив его перед этим нулём до 128 разрядов. \\ \hline 
+mov64u reg, [mem64]   & Загрузить в целочисленный регистр reg содержимое 64--разрядной ячейки памяти mem64, расширив его перед этим нулём до 128 разрядов. \\ \hline 
+mov8s reg, [mem8]     & Загрузить в целочисленный регистр reg содержимое 8--разрядной ячейки памяти mem8, расширив его перед этим знаком до 128 разрядов. \\ \hline 
+mov16s reg, [mem16]   & Загрузить в целочисленный регистр reg содержимое 16--разрядной ячейки памяти mem16, расширив его перед этим знаком до 128 разрядов. \\ \hline 
+mov32s reg, [mem32]   & Загрузить в целочисленный регистр reg содержимое 32--разрядной ячейки памяти mem32, расширив его перед этим знаком до 128 разрядов. \\ \hline 
+mov64s reg, [mem64]   & Загрузить в целочисленный регистр reg содержимое 64--разрядной ячейки памяти mem64, расширив его перед этим знаком до 128 разрядов. \\ \hline 
+mov [mem128], reg     & Сохранить содержимое целочисленного регистра reg в 128--разрядной ячейке памяти mem128.\\ \hline
+mov8 [mem8], reg      & Сохранить младшие 8 разрядов целочисленного регистра reg в 8--разрядной ячейке памяти mem8.\\ \hline
+mov16 [mem16], reg    & Сохранить младшие 16 разрядов целочисленного регистра reg в 16--разрядной ячейке памяти mem16.\\ \hline
+mov32 [mem32], reg    & Сохранить младшие 32 разряда целочисленного регистра reg в 32--разрядной ячейке памяти mem32.\\ \hline
+mov64 [mem64], reg    & Сохранить младшие 64 разряда целочисленного регистра reg в 64--разрядной ячейке памяти mem64.\\ \hline
+push r$i$-r$j$        & {\parbox{12.3cm}{Сохранить в стеке содержимое регистров с  r$i$ по r$j$ (должно быть $i\leqslant j$). А именно, делается следующее:\\
+\texttt{for(n = i; n <= j; n++)\{\\
+\phantom{aaaa}sp -= 16;\\
+\phantom{aaaa}*sp $\leftarrow$ r$n$;\\
+\} }
+}}  \\ \hline
+pop r$i$-r$j$        & {\parbox{12.3cm}{Восстановить из стека содержимое регистров с  r$i$ по r$j$ (должно быть $i\leqslant j$). А именно, делается следующее:\\
+\texttt{for(n = i; n <= j; n++)\{\\
+\phantom{aaaa}r$n$ $\leftarrow$ *sp;\\
+\phantom{aaaa}sp += 16;\\
+\} }
+}}  \\ \hline
+\end{longtable}    
+%\end{table}
+
+     
+        \subsection{Арифметические команды}
+К арифметическим командам относятся команды целочисленных сложения, вычитания, умножения, деления, и вычисления остатка, а также команды сравнения.
+
+В следующей таблице перечислены все целочисленные арифметические команды.        
+\begin{longtable}{|l|p{11.35cm}|}
+\caption{Целочисленные арифметические команды} \\ \hline 
+{\textbf{Команда}}               & \textbf{Пояснение}           \endhead \hline 
+addi reg1, reg2, reg3            & $\texttt{reg1}\leftarrow \texttt{reg2}+\texttt{reg3}$   \\ \hline
+addi reg1, reg2, imm10           & $\texttt{reg1}\leftarrow \texttt{reg2}+\texttt{imm10}$ \\ \hline
+subi reg1, reg2, reg3            & $\texttt{reg1}\leftarrow \texttt{reg2}-\texttt{reg3}$   \\ \hline
+subi reg1, reg2, imm10           & $\texttt{reg1}\leftarrow \texttt{reg2}-\texttt{imm10}$ \\ \hline
+muliu reg1, reg2, reg3           & Записать в reg1 младшие 128 разрядов результата беззнакового произведения reg2 и reg3.   \\ \hline
+muliu reg1, reg2, imm10          & Записать в reg1 младшие 128 разрядов результата беззнакового произведения reg2 и imm10.   \\ \hline
+mulis reg1, reg2, reg3           & Записать в reg1 младшие 128 разрядов результата знакового произведения reg2 и reg3.   \\ \hline
+mulis reg1, reg2, imm10          & Записать в reg1 младшие 128 разрядов результата знакового произведения reg2 и imm10.   \\ \hline
+diviu reg1, reg2, reg3           & Записать в reg1 частное при беззнаковом делении reg2 на reg3.   \\ \hline
+diviu reg1, reg2, imm10          & Записать в reg1 частное при беззнаковом делении reg2 на imm10.   \\ \hline
+divis reg1, reg2, reg3           & Записать в reg1 частное при знаковом делении reg2 на reg3.   \\ \hline
+divis reg1, reg2, imm10          & Записать в reg1 частное при беззнаковом делении reg2 на imm10.   \\ \hline
+modiu reg1, reg2, reg3           & Записать в reg1 остаток от беззнакового деления reg2 на reg3.   \\ \hline
+modiu reg1, reg2, imm10          & Записать в reg1 остаток от беззнакового деления reg2 на imm10.   \\ \hline
+modis reg1, reg2, reg3           & Записать в reg1 остаток от знакового деления reg2 на reg3.   \\ \hline
+modis reg1, reg2, imm10          & Записать в reg1 остаток от знакового деления reg2 на imm10.   \\ \hline
+divmodiu reg1, reg2, reg3, reg4  & Записать в reg1 частное при беззнаковом делении reg3 на reg4, а в reg2 --- остаток от деления.   \\ \hline
+divmodis reg1, reg2, reg3, reg4  & Записать в reg1 частное при знаковом делении reg3 на reg4, а в reg2 --- остаток от деления.   \\ \hline
+cmpiu reg1, reg2, reg3           & {\parbox{11cm}{Беззнаково сравнить reg2 и reg3. Далее так:%
+$$
+\texttt{reg1}\leftarrow\begin{cases}
+-1,\text{ если $\texttt{reg2}<\texttt{reg3}$};\cr
+0,\text{ если $\texttt{reg2}=\texttt{reg3}$};\cr
++1,\text{ если $\texttt{reg2}>\texttt{reg3}$}.\cr
+\end{cases}
+$$}} \\ \hline
+cmpis reg1, reg2, reg3           & {\parbox{11cm}{Знаково сравнить reg2 и reg3. Далее так:%
+$$
+\texttt{reg1}\leftarrow\begin{cases}
+-1,\text{ если $\texttt{reg2}<\texttt{reg3}$};\cr
+0,\text{ если $\texttt{reg2}=\texttt{reg3}$};\cr
++1,\text{ если $\texttt{reg2}>\texttt{reg3}$}.\cr
+\end{cases}
+$$}} \\ \hline
+cmpiu reg1, reg2, imm10           & {\parbox{11cm}{Беззнаково сравнить reg2 и imm10. Далее так:%
+$$
+\texttt{reg1}\leftarrow\begin{cases}
+-1,\text{ если $\texttt{reg2}<\texttt{imm10}$};\cr
+0,\text{ если $\texttt{reg2}=\texttt{imm10}$};\cr
++1,\text{ если $\texttt{reg2}>\texttt{imm10}$}.\cr
+\end{cases}
+$$}} \\ \hline
+cmpis reg1, reg2, imm10           & {\parbox{11cm}{Знаково сравнить reg2 и imm10. Далее так:%
+$$
+\texttt{reg1}\leftarrow\begin{cases}
+-1,\text{ если $\texttt{reg2}<\texttt{imm10}$};\cr
+0,\text{ если $\texttt{reg2}=\texttt{imm10}$};\cr
++1,\text{ если $\texttt{reg2}>\texttt{imm10}$}.\cr
+\end{cases}
+$$}} \\ \hline
+\end{longtable}
+%\end{table}
+
+В данном разделе и в последующих imm10 --- 10--разрядная знаковая константа.
+
+        \subsection{Поразрядные операции}
+В приводимой ниже таблице сведены все команды вычисления поразрядных операций:        
+\begin{table}[!h]
+\caption{Команды поразрядных операций}
+
+\begin{tabular}{|l|p{11.35cm}|}\hline 
+{\textbf{Команда}}               & \textbf{Пояснение}           \\ \hline 
+and reg1, reg2, reg3             & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{\&}}\texttt{reg3}$   \\ \hline
+and reg1, reg2, imm10            & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{\&}}\texttt{imm10}$   \\ \hline
+or reg1, reg2, reg3              & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{|}}\texttt{reg3}$   \\ \hline
+or reg1, reg2, imm10             & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{|}}\texttt{imm10}$   \\ \hline
+xor reg1, reg2, reg3             & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{\textasciicircum}}\texttt{reg3}$   \\ \hline
+xor reg1, reg2, imm10            & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{\textasciicircum}}\texttt{imm10}$   \\ \hline
+andn reg1, reg2, reg3            & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{\&}}\text{\textasciitilde}\texttt{reg3}$   \\ \hline
+andn reg1, reg2, imm10           & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{\&}}\text{\textasciitilde}\texttt{imm10}$   \\ \hline
+orn reg1, reg2, reg3             & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{|}}\text{\textasciitilde}\texttt{reg3}$   \\ \hline
+orn reg1, reg2, imm10            & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{|}}\text{\textasciitilde}\texttt{imm10}$   \\ \hline
+xorn reg1, reg2, reg3            & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{\textasciicircum}}\text{\textasciitilde}\texttt{reg3}$   \\ \hline
+xorn reg1, reg2, imm10           & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\textrm{\textasciicircum}}\text{\textasciitilde}\texttt{imm10}$   \\ \hline
+lshift reg1, reg2, reg3          & $\texttt{reg1}\leftarrow \texttt{reg2}\ll\texttt{reg3}$   \\ \hline
+lshift reg1, reg2, imm10         & $\texttt{reg1}\leftarrow \texttt{reg2}\ll\text{\textasciitilde}\texttt{imm10}$   \\ \hline
+rshift reg1, reg2, reg3          & $\texttt{reg1}\leftarrow \texttt{reg2}\gg\texttt{reg3}$ (сдвиг вправо беззнакового числа, при этом слева вдвигаются нули)  \\ \hline
+rshift reg1, reg2, imm10         & $\texttt{reg1}\leftarrow \texttt{reg2}\gg\text{\textasciitilde}\texttt{imm10}$ (сдвиг вправо беззнакового числа, при этом слева вдвигаются нули)   \\ \hline
+rshifts reg1, reg2, reg3         & $\texttt{reg1}\leftarrow \texttt{reg2}\gg\texttt{reg3}$ (сдвиг вправо знакового числа, при этом слева остаётся неизменным знаковый разряд)  \\ \hline
+rshifts reg1, reg2, imm10        & $\texttt{reg1}\leftarrow \texttt{reg2}\gg\texttt{imm10}$ (сдвиг вправо знакового числа, при этом слева остаётся неизменным знаковый разряд)   \\ \hline
+not reg1, reg2                   & $\texttt{reg1}\leftarrow \text{\textasciitilde}\texttt{reg2}$   \\ \hline
+not reg1, imm15                  & $\texttt{reg1}\leftarrow \text{\textasciitilde}\texttt{imm15}$   \\ \hline
+\end{tabular}
+\end{table}
+
+В данном разделе и в последующих imm15 --- 15--разрядная знаковая константа.
+
+    \section{Вещественные команды}
+Вещественные команды можно разделить на две больших группы: команды пересылки и арифметические команды. В следующих двух разделах перечисляются все эти команды и описывается их поведение.            
+        \subsection{Команды пересылки}
+К целочисленным командам пересылки относятся следующие команды:
+%\begin{center}
+\begin{longtable}[c]{|l|p{12.5cm}|}
+\caption{Вещественные команды пересылки} \\ \hline
+{\textbf{Команда}}    & \textbf{Пояснение} \endhead \hline 
+mov reg1, reg2        & Записать в вещественный регистр reg1 содержимое вещественного регистра reg2. \\ \hline 
+mov reg, [mem128]     & Загрузить в вещественный регистр reg содержимое 128--разрядной ячейки памяти mem128. \\ \hline 
+mov32f reg, [mem32]   & Загрузить в вещественный регистр reg содержимое 32--разрядной ячейки памяти mem32. \\ \hline 
+mov64f reg, [mem64]   & Загрузить в вещественный регистр reg содержимое 64--разрядной ячейки памяти mem64. \\ \hline 
+mov80f reg, [mem80]   & Загрузить в вещественный регистр reg содержимое 80--разрядной ячейки памяти mem80. \\ \hline 
+mov32f [mem32], reg   & Сохранить содержимое вещественного регистра reg в 32--разрядной ячейке памяти mem32 (происходит преобразование из четырёхкратной точности к одинарной).\\ \hline
+mov64f [mem64], reg   & Сохранить содержимое вещественного регистра reg в 64--разрядной ячейке памяти mem64 (происходит преобразование из четырёхкратной точности к двойной точности).\\ \hline
+mov80f [mem64], reg   & Сохранить содержимое вещественного регистра reg в 80--разрядной ячейке памяти mem80 (происходит преобразование из четырёхкратной точности к расширенной точности).\\ \hline
+push f$i$-f$j$        & {\parbox{12.3cm}{Сохранить в стеке содержимое регистров с  f$i$ по f$j$ (должно быть $i\leqslant j$). А именно, делается следующее:\\
+\texttt{for(n = i; n <= j; n++)\{\\
+\phantom{aaaa}sp -= 16;\\
+\phantom{aaaa}*sp $\leftarrow$ f$n$;\\
+\} }
+}}  \\ \hline
+pop f$i$-f$j$        & {\parbox{12.3cm}{Восстановить из стека содержимое регистров с  f$i$ по f$j$ (должно быть $i\leqslant j$). А именно, делается следующее:\\
+\texttt{for(n = i; n <= j; n++)\{\\
+\phantom{aaaa}f$n$ $\leftarrow$ *sp;\\
+\phantom{aaaa}sp += 16;\\
+\} }
+}}  \\ \hline
+\end{longtable}    
+%\end{center}%\end{table}
+
+        \subsection{Арифметические команды}
+К вещественным арифметическим командам относятся команды выполнения четырёх действий арифметики, команда сравнения, и команды округления. Все вещественные арифметические команды собраны в приводимой ниже таблице.        
+\begin{longtable}[c]{|l|p{12.5cm}|}
+\caption{Вещественные арифметические команды} \\ \hline
+{\textbf{Команда}}               & \textbf{Пояснение} \endhead \hline 
+addf reg1, reg2, reg3            & $\texttt{reg1}\leftarrow \texttt{reg2}+\texttt{reg3}$   \\ \hline
+subf reg1, reg2, reg3            & $\texttt{reg1}\leftarrow \texttt{reg2}-\texttt{reg3}$   \\ \hline
+mulf reg1, reg2, reg3            & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\texttt{*}}\texttt{reg3}$   \\ \hline
+divf reg1, reg2, reg3            & $\texttt{reg1}\leftarrow \texttt{reg2}\mathop{\texttt{/}}\texttt{reg3}$   \\ \hline
+cmpf reg1, reg2, reg3            & {\parbox{11cm}{Сравнить содержимое вещественных регистров reg2 и reg3, а результат записать в целочисленный регистр reg1. А именно:%
+$$
+\texttt{reg1}\leftarrow\begin{cases}
+-1,\text{ если $\texttt{reg2}<\texttt{reg3}$};\cr
+0,\text{ если $\texttt{reg2}=\texttt{reg3}$};\cr
++1,\text{ если $\texttt{reg2}>\texttt{reg3}$};\cr
++2,\text{ если содержимое reg2 и reg3 --- несравнимо}.\cr
+\end{cases}
+$$}} \\ \hline
+roundn reg1, reg2                & Записать в целочисленный регистр reg1 результат округления содержимого вещественного регистра reg2 к ближайшему целому.    \\ \hline
+roundl reg1, reg2                & Записать в целочисленный регистр reg1 результат округления содержимого вещественного регистра reg2 к ближайшему меньшему целому.    \\ \hline
+roundg reg1, reg2                & Записать в целочисленный регистр reg1 результат округления содержимого вещественного регистра reg2 к ближайшему большему целому.    \\ \hline
+roundt reg1, reg2                & Записать в целочисленный регистр reg1 результат округления содержимого вещественного регистра reg2 отбрасыванием дробной части.    \\ \hline
+frac reg1, reg2                  & Записать в вещественный регистр reg1 дробную часть содержимого вещественного регистра reg2.    \\ \hline
+\end{longtable}    
+
+    \section{Команды передачи управления}
+К командам передачи управления относятся команды условного и безусловного вызова подпрограммы, условного и безусловного перехода, условного и безусловного возврата, команда возбуждения программного прерывания, команда возврата из прерывания. В командах условного и безусловного перехода, а также в командах условного и безусловного вызова подпрограммы адрес перехода может быть как абсолютным, так и смещением относительно регистра указателя команд ip.
+
+В следующей таблице приведены все команды передачи управления. 
+\begin{longtable}[c]{|l|p{12.5cm}|}
+\caption{Команды передачи управления} \\ \hline
+{\textbf{Команда}}           & \textbf{Пояснение} \endhead \hline 
+jmp reg                      & Безусловный переход по абсолютному адресу, указанному в регистре: ip $\leftarrow$ reg, где reg --- целочисленный регистр \\ \hline
+jmpr reg                     & Безусловный относительный переход: ip += 4 * reg, где reg --- целочисленный регистр\\ \hline
+jmpr imm20                   & Безусловный относительный переход: ip += 4 * imm20, где imm20 --- 20--разрядная знаковая константа. \\ \hline
+jmp\textit{cc} reg1, reg2    & Условный переход по абсолютному адресу, указанному в регистре: если содержимое целочисленного регистра reg1 удовлетворяет условию \textit{cc}, то ip $\leftarrow$ reg2, где reg2 --- целочисленный регистр \\ \hline
+jmp\textit{cc}r reg1, reg2   & Условный относительный переход: если содержимое целочисленного регистра reg1 удовлетворяет условию \textit{cc}, то ip += 4 * reg2, где reg2 --- целочисленный регистр\\ \hline
+jmp\textit{cc}r reg, imm15   & Условный относительный переход: если содержимое целочисленного регистра reg удовлетворяет условию \textit{cc}, то ip += 4 * imm20, где imm15 --- 15--разрядная знаковая константа. \\ \hline
+call reg                     & {\parbox{12.4cm}{Безусловный вызов подпрограммы, абсолютный адрес которой находится в целочисленном регистре reg. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}sp -= 16;\\
+\phantom{aaaa}*sp = ip;\\
+\phantom{aaaa}ip $\leftarrow$ reg;
+}
+}} \\ \hline
+callr reg                     & {\parbox{12.4cm}{Безусловный вызов подпрограммы, относительный адрес которой находится в целочисленном регистре reg. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}sp -= 16;\\
+\phantom{aaaa}*sp = ip;\\
+\phantom{aaaa}ip += 4 * reg;
+}
+}} \\ \hline
+callr imm20                   & {\parbox{12.4cm}{Безусловный вызов подпрограммы, относительный адрес которой задан знаковой константой imm20. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}sp -= 16;\\
+\phantom{aaaa}*sp = ip;\\
+\phantom{aaaa}ip += 4 * imm20;
+}
+}} \\ \hline
+call\textit{cc} reg1, reg2    & {\parbox{12.4cm}{Условный вызов подпрограммы: если содержимое целочисленного регистра reg1 удовлетворяет условию \textit{cc}, то перейти к выполнению подпрограммы, абсолютный адрес которой указан в целочисленном регистре reg2. А именно, делается следующее:\\ %
+\texttt{%
+if(cc)\{\\
+\phantom{aaaa}sp -= 16;\\
+\phantom{aaaa}*sp = ip;\\
+\phantom{aaaa}ip $\leftarrow$ reg2;\\
+\}
+}
+}} \\ \hline
+call\textit{cc}r reg1, reg2   & {\parbox{12.4cm}{Условный вызов подпрограммы: если содержимое целочисленного регистра reg1 удовлетворяет условию \textit{cc}, то перейти к выполнению подпрограммы, относительный адрес которой указан в целочисленном регистре reg2. А именно, делается следующее:\\ %
+\texttt{%
+if(cc)\{\\
+\phantom{aaaa}sp -= 16;\\
+\phantom{aaaa}*sp = ip;\\
+\phantom{aaaa}ip $\leftarrow$ 4 * reg2;\\
+\}
+}
+}} \\ \hline
+call\textit{cc}r reg, imm15   & {\parbox{12.4cm}{Условный вызов подпрограммы: если содержимое целочисленного регистра reg удовлетворяет условию \textit{cc}, то перейти к выполнению подпрограммы, относительный адрес которой указан непосредственно заданной 15--разрядной знаковой константой imm15. А именно, делается следующее:\\ %
+\texttt{%
+if(cc)\{\\
+\phantom{aaaa}sp -= 16;\\
+\phantom{aaaa}*sp = ip;\\
+\phantom{aaaa}ip $\leftarrow$ 4 * imm15;\\
+\}
+}
+}} \\ \hline
+ret                           & {\parbox{12.4cm}{Безусловный возврат из подпрограммы. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}ip $\leftarrow$ *sp;\\
+\phantom{aaaa}sp += 16;
+}
+}} \\ \hline
+ret\textit{cc} reg            & {\parbox{12.4cm}{Условный возврат из подпрограммы, т.е. возврат из подпрограммы, если содержимое целочисленного регистра reg удовлетворяет условию \textit{cc}. А именно, делается следующее:\\ %
+\texttt{%
+if(cc)\{\\
+\phantom{aaaa}ip $\leftarrow$ *sp;\\
+\phantom{aaaa}sp += 16;\\
+\}
+}
+}} \\ \hline
+reta reg                     & {\parbox{12.4cm}{Безусловный возврат из подпрограммы с очисткой стека от переданных аргументов. В целочисленном регистре reg содержится размер переданных аргументов в байтах. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}ip $\leftarrow$ *sp;\\
+\phantom{aaaa}sp += 16;\\
+\phantom{aaaa}sp += reg;
+}
+}} \\ \hline
+reta imm20                   & {\parbox{12.4cm}{Безусловный возврат из подпрограммы с очисткой стека от переданных аргументов. Непосредственно заданная беззнаковая константа imm20 равна размеру переданных аргументов в байтах. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}ip $\leftarrow$ *sp;\\
+\phantom{aaaa}sp += 16;\\
+\phantom{aaaa}sp += imm20;
+}
+}} \\ \hline
+reta\textit{cc} reg1, reg2   & {\parbox{12.4cm}{Условный возврат из подпрограммы с очисткой стека от переданных аргументов, если содержимое целочисленного регистра reg1 удовлетворяет условию \textit{cc}. В целочисленном регистре reg2 содержится размер переданных аргументов в байтах. А именно, делается следующее:\\ %
+\texttt{%
+if(cc)\{\\
+\phantom{aaaa}ip $\leftarrow$ *sp;\\
+\phantom{aaaa}sp += 16;\\
+\phantom{aaaa}sp += reg2;\\
+\}
+}
+}} \\ \hline
+reta\textit{cc} reg, imm15   & {\parbox{12.4cm}{Условный возврат из подпрограммы с очисткой стека от переданных аргументов, если содержимое целочисленного регистра reg удовлетворяет условию \textit{cc}. Беззнаковая целочисленная константа imm15 определяет размер переданных аргументов в байтах. А именно, делается следующее:\\ %
+\texttt{%
+if(cc)\{\\
+\phantom{aaaa}ip $\leftarrow$ *sp;\\
+\phantom{aaaa}sp += 16;\\
+\phantom{aaaa}sp += imm15;\\
+\}
+}
+}} \\ \hline
+trap reg                     & {\parbox{12.4cm}{Вызов подпрограммы обработки прерывания, номер которого задан в целочисленном регистре reg. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}push r0-r31;\\
+\phantom{aaaa}push ip;\\
+\phantom{aaaa}ip $\leftarrow$ (reg \& 0x3FF) * 16;
+}
+}} \\ \hline
+trap imm10                   & {\parbox{12.4cm}{Вызов подпрограммы обработки прерывания, номер которого задан беззнаковой целочисленной константой imm10. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}push r0-r31;\\
+\phantom{aaaa}push ip;\\
+\phantom{aaaa}ip $\leftarrow$ imm10 * 16;
+}
+}} \\ \hline
+reti                         & {\parbox{12.4cm}{Возврат из подпрограммы обработки прерывания. А именно, делается следующее:\\ %
+\texttt{%
+\phantom{aaaa}pop ip;\\
+\phantom{aaaa}pop r0-r31;
+}
+}} \\ \hline
+\end{longtable}    
+
+
+Здесь \textit{cc} --- условие, которому должно удовлетворять содержимое регистра, чтобы произошла передача управления. В приводимой ниже таблице приведены все такие условия.
+
+\begin{longtable}[c]{|l|p{12.5cm}|}
+\caption{Обозначения условий для условной передачи управления} \\ \hline
+{\textbf{Обозначение}} & \textbf{Пояснение} \endhead \hline 
+s                      & Содержимое проверяемого регистра --- отрицательно. \\ \hline
+z                      & Содержимое проверяемого регистра --- ноль. \\ \hline
+p                      & Содержимое проверяемого регистра --- положительно. \\ \hline
+nz                     & Содержимое проверяемого регистра --- не ноль. \\ \hline
+ge                     & Содержимое проверяемого регистра --- больше или равно нуля. \\ \hline
+le                     & Содержимое проверяемого регистра --- меньше или равно нуля. \\ \hline
+\end{longtable}
+ 
+\chapter{Кодировка команд}
+
+\end{document}
