@@ -543,6 +543,84 @@ le                     & Содержимое проверяемого реги�
  
 \chapter{Кодировка команд}
 В настоящей главе описываются форматы команд и кодировка команд.
-\section{Формат команды}
+\section{Формат команд}
+Все команды используют один из общих шаблонов форматов, показанных ниже (самые старшие разряды --- слева).
 
+\bytefieldsetup{bitwidth=4.6mm}
+\bytefieldsetup{bitheight=5mm} 
+%\setlength{\bitwidth}{}
+%\setlength{\byteheight}{}
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,19, 20, 29, 30, 31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{20}{IMM}
+\end{bytefield}}
+\caption{Шаблон A. Имеется один операнд, являющийся непосредственно заданной константой.}\label{table:templateA}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,14,15,19, 20, 29, 30, 31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{5}{R} & \bitbox{15}{0}
+\end{bytefield}}
+\caption{Шаблон B. Имеется один регистровый операнд.}\label{table:templateB}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,14,15,19, 20, 29, 30, 31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{5}{R} & \bitbox{15}{IMM}
+\end{bytefield}}
+\caption{Шаблон C. Имеется один регистровый операнд и один операнд, являющийся непосредственно заданной константой.}\label{table:templateC}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,9,10,14,15,19,20, 29,30,31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{5}{R1} & \bitbox{5}{R2} & \bitbox{10}{0}
+\end{bytefield}}
+\caption{Шаблон D. Имеется два регистровых операнда.}\label{table:templateD}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,9,10,14,15,19,20, 29,30,31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{5}{R1} & \bitbox{5}{R2} & \bitbox{10}{IMM}
+\end{bytefield}}
+\caption{Шаблон E. Имеется два регистровых операнда и один операнд, являющийся непосредственно заданной константой.}\label{table:templateE}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,4,5,9,10,14,15,19,20, 29,30,31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{5}{R1} & \bitbox{5}{R2} & \bitbox{5}{R3} & \bitbox{5}{0}
+\end{bytefield}}
+\caption{Шаблон F. Имеется три регистровых операнда.}\label{table:templateF}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,4,5,9,10,14,15,19,20, 29,30,31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{5}{R1} & \bitbox{5}{R2} & \bitbox{5}{R3} & \bitbox{5}{R4}
+\end{bytefield}}
+\caption{Шаблон G. Имеется четыре регистровых операнда.}\label{table:templateG}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,1,2,4,5,9,10,14,15,19,20, 29,30,31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{5}{R1} & \bitbox{5}{B} & \bitbox{5}{IX} & \bitbox{3}{SF} & \bitbox{2}{0}
+\end{bytefield}}
+\caption{Шаблон M. Команда загрузки или сохранения.}\label{table:templateM}
+\end{figure}
+
+В следующих таблица приведены коды регистров и коды условий.
 \end{document}
