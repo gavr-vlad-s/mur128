@@ -746,11 +746,11 @@ mov reg, [mem128]    & 11:0000000011:reg:B:IX:SF:00 (т.е. использует
 mov8u reg, [mem8]    & 11:0000000100:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000000100$, $\texttt{R}=\texttt{reg}$)\\ \hline
 mov16u reg, [mem16]  & 11:0000000101:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000000101$, $\texttt{R}=\texttt{reg}$)\\ \hline
 mov32u reg, [mem32]  & 11:0000000110:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000000110$, $\texttt{R}=\texttt{reg}$)\\ \hline
-mov64u reg, [mem32]  & 11:0000000111:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000000111$, $\texttt{R}=\texttt{reg}$)\\ \hline
+mov64u reg, [mem64]  & 11:0000000111:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000000111$, $\texttt{R}=\texttt{reg}$)\\ \hline
 mov8s reg, [mem8]    & 11:0000001000:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000001000$, $\texttt{R}=\texttt{reg}$)\\ \hline
 mov16u reg, [mem16]  & 11:0000001001:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000001001$, $\texttt{R}=\texttt{reg}$)\\ \hline
 mov32u reg, [mem32]  & 11:0000001010:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000001010$, $\texttt{R}=\texttt{reg}$)\\ \hline
-mov64u reg, [mem32]  & 11:0000001011:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000001011$, $\texttt{R}=\texttt{reg}$)\\ \hline
+mov64u reg, [mem64]  & 11:0000001011:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000001011$, $\texttt{R}=\texttt{reg}$)\\ \hline
 mov [mem128], reg    & 11:0000001100:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000001100$, $\texttt{R}=\texttt{reg}$)\\ \hline
 mov8 [mem8], reg     & 11:0000001101:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000001101$, $\texttt{R}=\texttt{reg}$)\\ \hline
 mov16 [mem16], reg   & 11:0000001110:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000001110$, $\texttt{R}=\texttt{reg}$)\\ \hline
@@ -818,6 +818,23 @@ not reg, imm15                  & 00:0000101001:reg:imm15  (т.е. исполь�
     
 \section{Вещественные команды}
     \subsection{Команды пересылки}
+В приводимой ниже таблице описано кодирование вещественных команд пересылки.    
+
+\begin{longtable}[c]{|l|p{12.5cm}|}
+\caption{Кодирование вещественных команд пересылки} \\ \hline
+{\textbf{Команда}}   & \textbf{Двоичный код} \endhead \hline 
+mov reg1, reg2       & 11:0000010011:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=11$, $\texttt{OP}=0000010011$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+mov reg, [mem128]    & 11:0000010100:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000010100$, $\texttt{R}=\texttt{reg}$)\\ \hline
+mov32f reg, [mem32]  & 11:0000010101:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000010101$, $\texttt{R}=\texttt{reg}$)\\ \hline
+mov64f reg, [mem64]  & 11:0000010110:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000010110$, $\texttt{R}=\texttt{reg}$)\\ \hline
+mov80f reg, [mem80]  & 11:0000010111:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000010111$, $\texttt{R}=\texttt{reg}$)\\ \hline
+mov32f [mem32], reg  & 11:0000011000:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000011000$, $\texttt{R}=\texttt{reg}$)\\ \hline
+mov64f [mem64], reg  & 11:0000011001:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000011001$, $\texttt{R}=\texttt{reg}$)\\ \hline
+mov80f [mem64], reg  & 11:0000011010:reg:B:IX:SF:00 (т.е. используется шаблон M с $\texttt{T}=11$, $\texttt{OP}=0000011010$, $\texttt{R}=\texttt{reg}$)\\ \hline
+push f$i$-f$j$       & 11:0000011011:f$i$:f$j$:0000000000 (т.е. используется шаблон D с $\texttt{T}=11$, $\texttt{OP}=0000011011$, $\texttt{R1}=\texttt{f}i$, $\texttt{R2}=\texttt{f}j$) \\ \hline
+pop f$i$-f$j$        & 11:0000011100:r$i$:r$j$:0000000000 (т.е. используется шаблон D с $\texttt{T}=11$, $\texttt{OP}=0000011100$, $\texttt{R1}=\texttt{f}i$, $\texttt{R2}=\texttt{f}j$) \\ \hline
+\end{longtable}
+        
     \subsection{Арифметические команды}
 
 \section{Команды передачи управления}
