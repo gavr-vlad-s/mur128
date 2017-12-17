@@ -620,6 +620,17 @@ le                     & Содержимое проверяемого реги�
 \caption{Шаблон M. Команда загрузки или сохранения.}\label{table:templateM}
 \end{figure}
 
+\newpage
+
+\begin{figure}[!h]
+\centering
+{\begin{bytefield}{32}
+\bitheader[b]{0,19, 20, 29, 30, 31}\\
+\bitbox{2}{T} & \bitbox{10}{OP} & \bitbox{20}{0}
+\end{bytefield}}
+\caption{Шаблон H. У команды нет аргументов.}\label{table:templateH}
+\end{figure}
+
 В следующих таблица приведены коды регистров, коды условий, и коды в поле SF.
 
 \begin{longtable}[c]{|l|l|}
@@ -845,14 +856,87 @@ subf reg1, reg2, reg3           & 01:0000000001:reg1:reg2:reg3:00000 (т.е. и�
 mulf reg1, reg2, reg3           & 01:0000000010:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=01$, $\texttt{OP}=0000000010$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
 divf reg1, reg2, reg3           & 01:0000000011:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=01$, $\texttt{OP}=0000000011$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
 cmpf reg1, reg2, reg3           & 01:0000000100:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=01$, $\texttt{OP}=0000000100$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
-roundn reg1, reg2               & 00:0000000101:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=00$, $\texttt{OP}=0000000101$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
-roundl reg1, reg2               & 00:0000000110:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=00$, $\texttt{OP}=0000000110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
-roundg reg1, reg2               & 00:0000000111:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=00$, $\texttt{OP}=0000000111$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
-roundt reg1, reg2               & 00:0000001000:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=00$, $\texttt{OP}=0000001000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
-frac reg1, reg2                 & 00:0000001001:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=00$, $\texttt{OP}=0000001001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+roundn reg1, reg2               & 01:0000000101:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=01$, $\texttt{OP}=0000000101$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+roundl reg1, reg2               & 01:0000000110:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=01$, $\texttt{OP}=0000000110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+roundg reg1, reg2               & 01:0000000111:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=01$, $\texttt{OP}=0000000111$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+roundt reg1, reg2               & 01:0000001000:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=01$, $\texttt{OP}=0000001000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+frac reg1, reg2                 & 01:0000001001:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=01$, $\texttt{OP}=0000001001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
 \end{longtable} 
 
 
 \section{Команды передачи управления}
+Кодированию команд передачи управления посвящена следующая таблица.
+\begin{longtable}[c]{|l|p{12.5cm}|}
+\caption{Кодирование команд передачи управления} \\ \hline
+{\textbf{Команда}}              & \textbf{Двоичный код} \endhead \hline 
+jmp reg                         & 10:0000000000:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000000000$, $\texttt{R}=\texttt{reg}$) \\ \hline
+jmps reg1, reg2                 & 10:0000000001:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000000001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpz reg1, reg2                 & 10:0000000010:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000000010$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpp reg1, reg2                 & 10:0000000011:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000000011$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpnz reg1, reg2                & 10:0000000100:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000000100$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpge reg1, reg2                & 10:0000000101:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000000101$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmple reg1, reg2                & 10:0000000110:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000000110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpr reg1                       & 10:0000000111:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000000111$, $\texttt{R}=\texttt{reg}$) \\ \hline
+jmpsr reg1, reg2                & 10:0000001000:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000001000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpzr reg1, reg2                & 10:0000001001:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000001001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmppr reg1, reg2                & 10:0000001010:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000001010$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpnzr reg1, reg2               & 10:0000001011:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000001011$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpger reg1, reg2               & 10:0000001100:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000001100$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpler reg1, reg2               & 10:0000001101:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000001101$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+jmpr imm20                      & 10:0000001110:imm20 (т.е. используется шаблон A с $\texttt{T}=10$, $\texttt{OP}=0000001110$) \\ \hline
+jmpsr reg, imm15                & 10:0000001111:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000001111$, $\texttt{R}=\texttt{reg}$)\\ \hline
+jmpzr reg, imm15                & 10:0000010000:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000010000$, $\texttt{R}=\texttt{reg}$)\\ \hline
+jmppr reg, imm15                & 10:0000010001:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000010001$, $\texttt{R}=\texttt{reg}$)\\ \hline
+jmpnzr reg, imm15               & 10:0000010010:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000010010$, $\texttt{R}=\texttt{reg}$)\\ \hline
+jmpger reg, imm15               & 10:0000010011:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000010011$, $\texttt{R}=\texttt{reg}$)\\ \hline
+jmpler reg, imm15               & 10:0000010100:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000010100$, $\texttt{R}=\texttt{reg}$)\\ \hline
+call reg                        & 10:0000010101:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$,  $\texttt{OP}=0000010101$, $\texttt{R}=\texttt{reg}$) \\ \hline
+calls reg1, reg2                & 10:0000010110:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000010110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callz reg1, reg2                & 10:0000010111:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000010111$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callp reg1, reg2                & 10:0000011000:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000011000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callnz reg1, reg2               & 10:0000011001:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000011001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callge reg1, reg2               & 10:0000011010:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000011010$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callle reg1, reg2               & 10:0000011011:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000011011$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callr reg1                      & 10:0000011100:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$,  $\texttt{OP}=0000011100$, $\texttt{R}=\texttt{reg}$) \\ \hline
+callsr reg1, reg2               & 10:0000011101:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000011101$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callzr reg1, reg2               & 10:0000011110:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000011110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callpr reg1, reg2               & 10:0000011111:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000011111$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callnzr reg1, reg2              & 10:0000100000:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000100000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callger reg1, reg2              & 10:0000100001:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000100001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+calller reg1, reg2              & 10:0000100010:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000100010$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+callr imm20                     & 10:0000100011:imm20 (т.е. используется шаблон A с $\texttt{T}=10$, $\texttt{OP}=0000100011$) \\ \hline
+callsr reg, imm15               & 10:0000100100:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000100100$, $\texttt{R}=\texttt{reg}$)\\ \hline
+callzr reg, imm15               & 10:0000100101:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000100101$, $\texttt{R}=\texttt{reg}$)\\ \hline
+callpr reg, imm15               & 10:0000100110:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000100110$, $\texttt{R}=\texttt{reg}$)\\ \hline
+callnzr reg, imm15              & 10:0000100111:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000100111$, $\texttt{R}=\texttt{reg}$)\\ \hline
+callger reg, imm15              & 10:0000101000:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000101000$, $\texttt{R}=\texttt{reg}$)\\ \hline
+calller reg, imm15              & 10:0000101001:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000101001$, $\texttt{R}=\texttt{reg}$)\\ \hline
+ret                             & 10:0000101010:00000000000000000000 (т.е. используется шаблон H с $\texttt{T}=10$, $\texttt{OP}=0000101010$) \\ \hline
+rets reg                        & 10:0000101011:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000101011$, $\texttt{R}=\texttt{reg}$) \\ \hline
+retz reg                        & 10:0000101100:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000101100$, $\texttt{R}=\texttt{reg}$) \\ \hline
+retp reg                        & 10:0000101101:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000101101$, $\texttt{R}=\texttt{reg}$) \\ \hline
+retnz reg                       & 10:0000101110:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000101110$, $\texttt{R}=\texttt{reg}$) \\ \hline
+retge reg                       & 10:0000101111:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000101111$, $\texttt{R}=\texttt{reg}$) \\ \hline
+retle reg                       & 10:0000110000:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000110000$, $\texttt{R}=\texttt{reg}$) \\ \hline
+reta reg                        & 10:0000110001:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000110001$, $\texttt{R}=\texttt{reg}$) \\ \hline
+retasr reg1, reg2               & 10:0000110010:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000110010$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+retazr reg1, reg2               & 10:0000110011:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000110011$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+retapr reg1, reg2               & 10:0000110100:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000110100$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+retanzr reg1, reg2              & 10:0000110101:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000110101$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+retager reg1, reg2              & 10:0000110110:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000110110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+retaler reg1, reg2              & 10:0000110111:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=10$, $\texttt{OP}=0000110111$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+reta imm20                      & 10:0000111000:imm20 (т.е. используется шаблон A с $\texttt{T}=10$, $\texttt{OP}=0000111000$) \\ \hline
+retasr reg, imm15               & 10:0000111001:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000111001$, $\texttt{R}=\texttt{reg}$)\\ \hline
+retazr reg, imm15               & 10:0000111010:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000111010$, $\texttt{R}=\texttt{reg}$)\\ \hline
+retapr reg, imm15               & 10:0000111011:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000111011$, $\texttt{R}=\texttt{reg}$)\\ \hline
+retanzr reg, imm15              & 10:0000111100:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000111100$, $\texttt{R}=\texttt{reg}$)\\ \hline
+retager reg, imm15              & 10:0000111101:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000111101$, $\texttt{R}=\texttt{reg}$)\\ \hline
+retaler reg, imm15              & 10:0000111110:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000111110$, $\texttt{R}=\texttt{reg}$)\\ \hline
+trap reg                        & 10:0000111111:reg:000000000000000 (т.е. используется шаблон B с $\texttt{T}=10$, $\texttt{OP}=0000111111$, $\texttt{R}=\texttt{reg}$) \\ \hline
+trap imm10                      & 10:0001000000:0000000000imm10 (т.е. используется шаблон A с $\texttt{T}=10$, $\texttt{OP}=0001000000$) \\ \hline
+reti                            & 10:0001000001:00000000000000000000 (т.е. используется шаблон H с $\texttt{T}=10$, $\texttt{OP}=0001000001$) \\ \hline
+\end{longtable} 
+
+
 
 \end{document}
