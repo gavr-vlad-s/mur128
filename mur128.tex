@@ -763,7 +763,7 @@ pop r$i$-r$j$        & 11:0000010010:r$i$:r$j$:0000000000 (т.е. использ
     \subsection{Арифметические команды}
 Ниже приведено описание кодирования целочисленных арифметических команд.
 \begin{longtable}[c]{|l|p{12.5cm}|}
-\caption{Кодирование целочисленных команд пересылки} \\ \hline
+\caption{Кодирование целочисленных арифметических команд} \\ \hline
 {\textbf{Команда}}              & \textbf{Двоичный код} \endhead \hline 
 addi reg1, reg2, reg3           & 00:0000000000:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000000000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
 addi reg1, reg2, imm10          & 00:0000000001:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000000001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
@@ -790,6 +790,32 @@ cmpis reg1, reg2, imm10          & 00:0000010101:reg1:reg2:imm10 (т.е. исп�
 \end{longtable} 
     
     \subsection{Поразрядные операции}
+В следующей таблице описано кодирование целочисленных поразрядных операций.    
+\begin{longtable}[c]{|l|p{12.5cm}|}
+\caption{Кодирование целочисленных команд поразрядных операций} \\ \hline
+{\textbf{Команда}}              & \textbf{Двоичный код} \endhead \hline 
+and reg1, reg2, reg3            & 00:0000010110:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000010110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+and reg1, reg2, imm10           & 00:0000010111:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000010111$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+or reg1, reg2, reg3             & 00:0000011000:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000011000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+or reg1, reg2, imm10            & 00:0000011001:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000011001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+xor reg1, reg2, reg3            & 00:0000011010:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000011010$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+xor reg1, reg2, imm10           & 00:0000011011:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000011011$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+andn reg1, reg2, reg3           & 00:0000011100:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000011100$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+andn reg1, reg2, imm10          & 00:0000011101:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000011101$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+orn reg1, reg2, reg3            & 00:0000011110:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000011110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+orn reg1, reg2, imm10           & 00:0000011111:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000011111$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+xorn reg1, reg2, reg3           & 00:0000100000:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000100000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+xorn reg1, reg2, imm10          & 00:0000100001:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000100001$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+lshift reg1, reg2, reg3         & 00:0000100010:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000100010$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+lshift reg1, reg2, imm10        & 00:0000100011:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000100011$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+rshift reg1, reg2, reg3         & 00:0000100100:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000100100$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+rshift reg1, reg2, imm10        & 00:0000100101:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000100101$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+rshifts reg1, reg2, reg3        & 00:0000100110:reg1:reg2:reg3:00000 (т.е. используется шаблон F с $\texttt{T}=00$, $\texttt{OP}=0000100110$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$,  $\texttt{R3}=\texttt{reg3}$) \\ \hline
+rshifts reg1, reg2, imm10       & 00:0000100111:reg1:reg2:imm10 (т.е. используется шаблон E с $\texttt{T}=00$, $\texttt{OP}=0000100111$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+not reg1, reg2                  & 00:0000101000:reg1:reg2:0000000000 (т.е. используется шаблон D с $\texttt{T}=00$, $\texttt{OP}=0000101000$, $\texttt{R1}=\texttt{reg1}$, $\texttt{R2}=\texttt{reg2}$) \\ \hline
+not reg, imm15                  & 00:0000101001:reg:imm15  (т.е. используется шаблон C с $\texttt{T}=00$, $\texttt{OP}=0000101001$, $\texttt{R}=\texttt{reg}$)\\ \hline
+\end{longtable}      
+    
 \section{Вещественные команды}
     \subsection{Команды пересылки}
     \subsection{Арифметические команды}
